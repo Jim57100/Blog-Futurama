@@ -37,7 +37,13 @@ class MysqlDatabase extends Database{
   public function query($stmt, $class_name = null, $one = false) 
   {
     $req = $this->getPDO()->query($stmt);
-    
+    if(
+      strpos($stmt, 'UPDATE') === 0 ||
+      strpos($stmt, 'INSERT') === 0 ||
+      strpos($stmt, 'DELETE') === 0
+      ){
+        return $req;
+      }
     if($class_name === null) {
       $req->setFetchMode(PDO::FETCH_OBJ);
     } else {
@@ -56,7 +62,15 @@ class MysqlDatabase extends Database{
   public function prepare($stmt, $attributes, $class_name = null, $one = false) //$attributes = valeur passée à la variable dans l'url
   {
     $req = $this->getPDO()->prepare($stmt);
-    $req->execute($attributes);
+    $result = $req->execute($attributes);
+    if(
+      strpos($stmt, 'UPDATE') === 0 ||
+      strpos($stmt, 'INSERT') === 0 ||
+      strpos($stmt, 'DELETE') === 0
+      ){
+        return $result;
+      }
+
     if($class_name === null) {
       $req->setFetchMode(PDO::FETCH_OBJ);
     } else {

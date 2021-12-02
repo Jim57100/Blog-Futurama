@@ -13,6 +13,7 @@ class BootstrapForm extends Form {
   public function input($name, $label, $options = []) {
     $type = isset($options['type']) ? $options['type'] : 'text';
     $label = '<label class="form-label mt-4">'.$label.'</label>';
+   
     if($type === 'textarea'){
       $input = '<textarea class="form-control" type ="'.$type.'" name="'.$name.'">'. $this->getValue($name).'</textarea>';
     } else {
@@ -21,6 +22,24 @@ class BootstrapForm extends Form {
     }
 
     return $this->surround($label . $input);
+  }
+
+  public function select($name, $label, $options){
+
+    $label = '<label class="form-label mt-4">'.$label.'</label>';
+    $input = '<select class="form-control" name="'.$name.'">';
+    
+    foreach($options as $key => $value) {
+      $attributes = '';
+      if($k = $this->getValue($name)) {
+        $attributes = 'selected';
+      }
+      $input .= '<option value="'.$key.'">'.$value.'</option>'; 
+    }
+    
+    $input = '</select>';
+  
+    return $this->surround($label, $input);
   }
 
   //btn submit

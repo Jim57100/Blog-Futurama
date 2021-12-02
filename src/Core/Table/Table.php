@@ -42,5 +42,31 @@ class Table {
   {
     return $this->query('SELECT * FROM '. $this->table);
   }
+
+  //Requête d'UPDATE
+  public function update($id, $fields) {
+    
+    $sql_parts = [];
+    $attributes = [];
+    
+    //Parcours les champs de la table en bdd
+    foreach($fields as $key => $value) {
+      $sql_parts[] = "$key = ?";
+       $attributes[] = $value; 
+    }
+    $attributes[] =
+    $sql_part = implode(', ',$sql_parts);
+
+    die();
+    return $this->query("UPDATE {$this->table} SET $sql_part WHERE id = ?", $attributes, true);
+  }
   
+  public function extract($key, $value) {
+    $records = $this->readAll();
+    $return = [];
+    foreach($records as $v) {
+      $return[$v->$key] = $v->$value;
+    }
+    return $return;
+  }
 }

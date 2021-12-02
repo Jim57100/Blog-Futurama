@@ -27,7 +27,7 @@ class PostTable extends Table {
   public function readOne(int $id)
   {
     $params = [$id];
-    return array_shift($this->query("SELECT articles.id, articles.title, articles.content, articles.date, categories.title as categorie 
+    return array_shift($this->query("SELECT articles.id, articles.title, articles.content, articles.date, categories.title, articles.category_id as categorie 
     FROM articles 
     LEFT JOIN categories ON category_id = categories.id
     WHERE articles.id = ?

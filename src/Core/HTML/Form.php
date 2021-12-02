@@ -19,8 +19,8 @@ class Form {
 
   //Index de la valeur à récupérer
   protected function getValue($index) {
-    if(is_object($this->data) ) {
-      return $this->data->index;
+    if(is_object($this->data)) {
+      return $this->data->index; //never
     }
     return isset($this->data[$index]) ? $this->data[$index] : null;
   }

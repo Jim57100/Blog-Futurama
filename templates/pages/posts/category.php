@@ -10,13 +10,13 @@ if(isset($_GET['id'])) {
 
 $app = App::getInstance();
 
-$category = $app->getTable('Category')->readOne($id);
+$category = $app->getTable('Categories')->readOne($id);
 if($category === false) {
   $app->notFound();
 }
 
 $post = $app->getTable('Post')->readLastByCategory($id);
-$categories->getTable('Category')->readAll(); 
+$categories->getTable('Categories')->readAll(); 
 
 
 ?>
